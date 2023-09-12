@@ -13,32 +13,33 @@ Training_file = pd.read_csv("https://raw.githubusercontent.com/Raftaar-98/ML-pro
 
 
 def parse_file(data_file):
-        mpg = data_file[data_file.columns[0]]
-        mpg_list = mpg.to_list()
-        
-        cylinders = data_file[data_file.columns[1]]
-        cylinders_list = cylinders.to_list()
+        Temperature = data_file[data_file.columns[0]]
+        Temperature_list = Temperature.to_list()
+        for i in range (0,len(Temperature_list)):
+            Temperature_list[i] = int(Temperature_list[i])
+
+        Amb_press = data_file[data_file.columns[1]]
+        Amb_press_list = Amb_press.to_list()
+        for i in range (0,len(Amb_press_list)):
+            Amb_press_list[i] = int(Amb_press_list[i])
        
-        displacement = data_file[data_file.columns[2]]
-        displacement_list = displacement.to_list()
+        Rel_humid = data_file[data_file.columns[2]]
+        Rel_humid_list = Rel_humid.to_list()
+        for i in range (0,len(Rel_humid_list)):
+            Rel_humid_list[i] = int(Rel_humid_list[i])
         
-        horsepower = data_file[data_file.columns[3]]
-        horsepower_list = horsepower.to_list()
+        Exh_vacc = data_file[data_file.columns[3]]
+        Exh_vacc_list = Exh_vacc.to_list()
+        for i in range (0,len(Exh_vacc_list)):
+            Exh_vacc_list[i] = int(Exh_vacc_list[i])
         
-        weight = data_file[data_file.columns[4]]
-        weight_list = weight.to_list()
+        Elec_output = data_file[data_file.columns[4]]
+        Elec_output_list = Elec_output.to_list()
+        for i in range (0,len(Elec_output_list)):
+            Elec_output_list[i] = int(Elec_output_list[i])
         
-        acceleration = data_file[data_file.columns[5]]
-        acceleration_list = acceleration.to_list()
         
-        model_year = data_file[data_file.columns[6]]
-        model_year_list = model_year.to_list()
         
-        origin = data_file[data_file.columns[7]]
-        origin_list = origin.to_lise()
-        
-        car_name = data_file[data_file.columns[8]]
-        car_name_list = car_name.to_list()
 
      
 
