@@ -1,12 +1,13 @@
 #
 #
 # Author 1 : Shishir Sunil Yalburgi     NETID: SSY220000
-# Author 2 : Uthama Kadengodlu          NETID: 
 #
+# Author 2 : Uthama Kadengodlu          NETID: 
 # This file implements gradiant descent class
 
 import numpy as np
 import pandas as pd 
+import matplotlib.pyplot as plt 
 
 
 
@@ -16,41 +17,43 @@ Training_file = (Training_file - Training_file.mean()/Training_file.std())
 
 
 def parse_file(data_file):
-        Temperature = data_file[data_file.columns[0]]
-        Temperature_list = Temperature.to_list()
-        for i in range (0,len(Temperature_list)):
-            Temperature_list[i] = float(Temperature_list[i])
+        Ind_var = data_file.iloc[:,0:4]
+        ones = np.ones([Ind_var.shape[0],1])
+        Ind_var = np.concatenate((ones,Ind_var),axis = 1)
 
-       
-        Exh_vacc = data_file[data_file.columns[1]]
-        Exh_vacc_list = Exh_vacc.to_list()
-        for i in range (0,len(Exh_vacc_list)):
-            Exh_vacc_list[i] = float(Exh_vacc_list[i])
-
-        
-        Amb_press = data_file[data_file.columns[2]]
-        Amb_press_list = Amb_press.to_list()
-        for i in range (0,len(Amb_press_list)):
-            Amb_press_list[i] = float(Amb_press_list[i])
-       
-       
-        Rel_humid = data_file[data_file.columns[3]]
-        Rel_humid_list = Rel_humid.to_list()
-        for i in range (0,len(Amb_press_list)):
-            Rel_humid_list[i] = float(Rel_humid_list[i])
-       
-        
-        
-        Elec_output = data_file[data_file.columns[4]]
-        Elec_output_list = Elec_output.to_list()
-        for i in range (0,len(Elec_output_list)):
-            Elec_output_list[i] = float(Elec_output_list[i])
-        
-        
+        Dep_var = data_file.iloc[:,4:5].values
+        func = np.zeros([1,5])
         
 
-     
+        learning_rate = 0.01
+        iterations = 1000
+        return Ind_var,Dep_var,func,learning_rate,iterations
+
+def epsilon(Ind_var,Dep_Var,func):
+         tobesummed = np.power(((Ind_var @ func.T)-Dep_Var),2)
+         return np.sum(tobesummed)/(2 * len(Ind_var))
+
+def gradientDescent(Ind_var,Dep_var,func,iterations,learning_rate):
+        summ = np.zeros(iterations)
+        for i in range(iterations):
+            func = func - (learning_rate/len(Ind_var)) * np.sum(Ind_var * (Ind_var @ func.T - Dep_var), axis = 0)
+            summ[i] = epsilon(Ind_var,Dep_var,func)
+
+        return func,summ
+            
+
 
 if __name__ == "__main__":
-    parse_file(Training_file)
+    Ind_var,Dep_var,func,learning_rate,iterations = parse_file(Training_file)
+    print(Ind_var)
+    print(Dep_var)
+    print(func)
+    g,cost = gradientDescent(Ind_var,Dep_var,func,iterations,learning_rate)
+    print(g)
+
+    final_error = epsilon(Ind_var,Dep_var,g)
+    print(final_error)
+
+    fig, ax = plt.subplots()
+    ax.plot(np.arange(iterations),cost,'r')
     
