@@ -11,6 +11,7 @@ import pandas as pd
 
 
 Training_file = pd.read_csv("https://raw.githubusercontent.com/Raftaar-98/ML-project-1/main/Training_data.csv",skiprows=[0], header = None)
+Training_file = (Training_file - Training_file.mean()/Training_file.std())
 
 
 
@@ -20,7 +21,7 @@ def parse_file(data_file):
         for i in range (0,len(Temperature_list)):
             Temperature_list[i] = float(Temperature_list[i])
 
-        
+       
         Exh_vacc = data_file[data_file.columns[1]]
         Exh_vacc_list = Exh_vacc.to_list()
         for i in range (0,len(Exh_vacc_list)):
@@ -32,7 +33,7 @@ def parse_file(data_file):
         for i in range (0,len(Amb_press_list)):
             Amb_press_list[i] = float(Amb_press_list[i])
        
-        
+       
         Rel_humid = data_file[data_file.columns[3]]
         Rel_humid_list = Rel_humid.to_list()
         for i in range (0,len(Amb_press_list)):
@@ -52,3 +53,4 @@ def parse_file(data_file):
 
 if __name__ == "__main__":
     parse_file(Training_file)
+    
