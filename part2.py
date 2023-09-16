@@ -14,7 +14,8 @@ from sklearn.preprocessing import StandardScaler
 
 Training_file = pd.read_csv("https://raw.githubusercontent.com/Raftaar-98/ML-project-1/main/Training_data.csv",skiprows=[0], header = None)
 Training_file = (Training_file - Training_file.mean())/Training_file.std()
-
+Testing_file = pd.read_csv("https://raw.githubusercontent.com/Raftaar-98/ML-project-1/main/Test_Data.csv",skiprows=[0], header = None)
+Testing_file = (Testing_file - Testing_file.mean())/Testing_file.std()
 
 
 def preprocess_data(data_file):
@@ -27,12 +28,20 @@ def preprocess_data(data_file):
 
 if __name__ == "__main__":
     independent_variable,dependent_variable = preprocess_data(Training_file)
-   
+    
 
     model = SGDRegressor(max_iter=5000,eta0=0.05)
     model.fit(independent_variable,dependent_variable)
-   
-    print(model.coef_)
+    
+    print("Model Coeff: ",model.coef_)
+
+    dependent_variable = dependent_variable[1:3071]
+    independent_variable_test,dependent_variable_test = preprocess_data(Testing_file)
+    pred_data = model.predict(independent_variable_test)
+
+    print("Mean squared error: ",mean_squared_error(dependent_variable_test,pred_data))
+
+    
     
     #fig,ax = plt.subplots()
     #ax.plot(np.arange(iterations),epsilon,'r')

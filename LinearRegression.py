@@ -7,7 +7,7 @@
 import matplotlib.pyplot as plt 
 import pandas as pd 
 import numpy as np
-
+from sklearn.metrics import mean_squared_error
 
 
 Training_file = pd.read_csv("https://raw.githubusercontent.com/Raftaar-98/ML-project-1/main/Training_data.csv",skiprows=[0], header = None)
@@ -37,6 +37,12 @@ def GD(ind_var, dep_var,theta, iterations, learning_rate):
             epsilon[i] = gen_cost_function(ind_var,dep_var,theta)
         return theta,epsilon
 
+def predict(x,y):
+        pred_value = np.zeros(len(y))
+        for  i in range(len(y)):
+            pred_value[i] = x @ y[i]
+        return pred_value
+
 if __name__ == "__main__":
     ind_var,dep_var,theta = preprocess_data(Training_file)
     test_ind_var, test_dep_var, test_theta = preprocess_data(Testing_file)
@@ -45,6 +51,10 @@ if __name__ == "__main__":
     theta,epsilon = GD(ind_var,dep_var,theta,iterations,learn_rate)
     print(theta)
     print(gen_cost_function(test_ind_var,test_dep_var,theta))
+    pred_data = predict(theta,test_ind_var)
+   
+    print("Mean squared error: ",mean_squared_error(test_dep_var,pred_data))
+
     fig,ax = plt.subplots()
     ax.plot(np.arange(iterations),epsilon,'r')
 
