@@ -41,6 +41,8 @@ if __name__ == "__main__":
     model.fit(independent_variable,dependent_variable)
     theta = model.coef_
     print("Model Coeff: ",model.coef_)
+    accu = model.score(independent_variable,dependent_variable)
+    print("R square value is ", accu)
 
     dependent_variable = dependent_variable[1:3071]
     independent_variable_test,dependent_variable_test = preprocess_data(Testing_file)
@@ -60,8 +62,6 @@ if __name__ == "__main__":
     
     ax2.scatter3D(xline, yline, zline, 'gray')
     
-    
-    
     zline2 = dependent_variable_test[:250]
     yline2 = independent_variable_test[:250,1]
     xline2 = independent_variable_test[:250,3]
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     ax2.legend(['predicted value','actual value'])
     plt.show()
     
-  
+    #Write to a log file
     L = ["Part2: \n","Iterations = " + str(iterations) + ",Learning rate = " + str(learn_rate) + "\nTheta = " + str(theta) + ",MSE = " + str(MSE) + "\n"]
     file = open("log.txt","a")
     file.writelines(L)

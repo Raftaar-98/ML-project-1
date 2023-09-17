@@ -103,11 +103,7 @@ if __name__ == "__main__":
     ax2.legend(['predicted value','actual value'])
     plt.show()
 
-   
-  
-    
- 
-
+    #Write to a log file
     L = ["Part1: \n", "Iterations = " + str(iterations) + ",Learning rate = " + str(learn_rate) + "\nTheta = " + str(theta) + ",MSE = " + str(MSE) + "\n"]
     file = open("log.txt","a")
     file.writelines(L)
