@@ -47,7 +47,7 @@ if __name__ == "__main__":
     ind_var,dep_var,theta = preprocess_data(Training_file)
     test_ind_var, test_dep_var, test_theta = preprocess_data(Testing_file)
     learn_rate = 0.05
-    iterations = 5000
+    iterations = 100
     theta,epsilon = GD(ind_var,dep_var,theta,iterations,learn_rate)
     print(theta)
     print(gen_cost_function(test_ind_var,test_dep_var,theta))
@@ -57,6 +57,21 @@ if __name__ == "__main__":
 
     fig,ax = plt.subplots()
     ax.plot(np.arange(iterations),epsilon,'r')
+    plt.show()
 
+    fig2 = plt.figure()
+    ax2 = plt.axes(projection='3d')
+    zline = pred_data
+    yline = test_ind_var[:,0]
+    xline = test_ind_var[:,1]
+    ax2.scatter3D(xline, yline, zline, 'gray')
+    
+    zline2 = test_dep_var
+    yline2 = test_ind_var[:,0]
+    xline2 = test_ind_var[:,1]
+    ax2.scatter3D(xline2, yline2, zline2, 'red')
+    plt.show()
+
+   
   
     

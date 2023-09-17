@@ -41,7 +41,18 @@ if __name__ == "__main__":
 
     print("Mean squared error: ",mean_squared_error(dependent_variable_test,pred_data))
 
+    fig2 = plt.figure()
+    ax2 = plt.axes(projection='3d')
+    zline = pred_data
+    yline = independent_variable_test[:,0]
+    xline = independent_variable_test[:,1]
+    ax2.scatter3D(xline, yline, zline, 'gray')
     
+    zline2 = dependent_variable_test
+    yline2 = independent_variable_test[:,0]
+    xline2 = independent_variable_test[:,1]
+    ax2.scatter3D(xline2, yline2, zline2, 'red')
+    plt.show()
     
     #fig,ax = plt.subplots()
     #ax.plot(np.arange(iterations),epsilon,'r')
