@@ -2,12 +2,12 @@
 #
 # Author 1 : Shishir Sunil Yalburgi     NETID: SSY220000
 #
-# Author 2 : Uthama Kadengodlu          NETID: 
+# Author 2 : Uthama Kadengodlu          NETID: UXK210012
 # This file implements gradiant descent class
 import matplotlib.pyplot as plt 
 import pandas as pd 
 import numpy as np
-
+from sklearn.metrics import mean_squared_error
 
 
 Training_file = pd.read_csv("https://raw.githubusercontent.com/Raftaar-98/ML-project-1/main/Training_data.csv",skiprows=[0], header = None)
@@ -37,16 +37,45 @@ def GD(ind_var, dep_var,theta, iterations, learning_rate):
             epsilon[i] = gen_cost_function(ind_var,dep_var,theta)
         return theta,epsilon
 
+def predict(x,y):
+        pred_value = np.zeros(len(y))
+        for  i in range(len(y)):
+            pred_value[i] = x @ y[i]
+        return pred_value
+
 if __name__ == "__main__":
     ind_var,dep_var,theta = preprocess_data(Training_file)
     test_ind_var, test_dep_var, test_theta = preprocess_data(Testing_file)
     learn_rate = 0.05
-    iterations = 5000
+    iterations = 100
     theta,epsilon = GD(ind_var,dep_var,theta,iterations,learn_rate)
     print(theta)
     print(gen_cost_function(test_ind_var,test_dep_var,theta))
+    pred_data = predict(theta,test_ind_var)
+    
+    MSE = mean_squared_error(test_dep_var,pred_data)
+    print("Mean squared error: ",)
+
     fig,ax = plt.subplots()
     ax.plot(np.arange(iterations),epsilon,'r')
+    plt.show()
 
+    fig2 = plt.figure()
+    ax2 = plt.axes(projection='3d')
+    zline = pred_data
+    yline = test_ind_var[:,0]
+    xline = test_ind_var[:,1]
+    ax2.scatter3D(xline, yline, zline, 'gray')
+    
+    zline2 = test_dep_var
+    yline2 = test_ind_var[:,0]
+    xline2 = test_ind_var[:,1]
+    ax2.scatter3D(xline2, yline2, zline2, 'red')
+    plt.show()
+
+    L = ["Part1: \n", "Iterations = " + str(iterations) + ",Learning rate = " + str(learn_rate) + "\nTheta = " + str(theta) + ",MSE = " + str(MSE) + "\n"]
+    file = open("log.txt","a")
+    file.writelines(L)
+    file.close()
   
     
