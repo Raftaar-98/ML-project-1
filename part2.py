@@ -5,7 +5,7 @@
 # Author 2 : Uthama Kadengodlu          NETID: UXK210012
 
 
-from tkinter.tix import COLUMN
+
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
