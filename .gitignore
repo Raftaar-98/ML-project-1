@@ -9,3 +9,4 @@
 *.json
 *.wsuo
 *.vsidx
+*.sqlite-journal
