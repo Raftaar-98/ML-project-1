@@ -39,7 +39,7 @@ if __name__ == "__main__":
     iterations = 5000
     model = SGDRegressor(max_iter=iterations,eta0=learn_rate)
     model.fit(independent_variable,dependent_variable)
-    
+    theta = model.coef_
     print("Model Coeff: ",model.coef_)
 
     dependent_variable = dependent_variable[1:3071]
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     plt.show()
     
   
-    L = ["Part2: \n", "Iterations = " + str(iterations) + ",Learning rate = " + str(learn_rate) + "\nMSE = " + str(MSE) + "\n"]
+    L = ["Part2: \n","Iterations = " + str(iterations) + ",Learning rate = " + str(learn_rate) + "\nTheta = " + str(theta) + ",MSE = " + str(MSE) + "\n"]
     file = open("log.txt","a")
     file.writelines(L)
     file.close()
