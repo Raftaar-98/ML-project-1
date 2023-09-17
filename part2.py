@@ -19,12 +19,12 @@ from sklearn.preprocessing import StandardScaler
 
 # getting training file and test file
 Training_file = pd.read_csv("https://raw.githubusercontent.com/Raftaar-98/ML-project-1/main/Training_data.csv",skiprows=[0], header = None)
-Training_file = (Training_file - Training_file.mean())/Training_file.std()
+Training_file = (Training_file - Training_file.mean())/Training_file.std()  #Normalizing the data
 Testing_file = pd.read_csv("https://raw.githubusercontent.com/Raftaar-98/ML-project-1/main/Test_Data.csv",skiprows=[0], header = None)
-Testing_file = (Testing_file - Testing_file.mean())/Testing_file.std()
+Testing_file = (Testing_file - Testing_file.mean())/Testing_file.std() #Normalizing the data
 
 
-# Function to preprocess the data
+# Function to extract features from the data
 def preprocess_data(data_file):
         independent_variable = data_file.drop(columns = [4], axis=1)
         dependent_variable = data_file.drop(columns = [0,1,2,3], axis=1)
@@ -49,18 +49,27 @@ if __name__ == "__main__":
     print("Mean squared error: ",MSE)
 
  
-
+    #Plotting in 3d actual value and predicted value
     fig2 = plt.figure()
     ax2 = plt.axes(projection='3d')
-    zline = pred_data[:500]
-    yline = independent_variable_test[:500,0]
-    xline = independent_variable_test[:500,1]
+    zline = pred_data[:250]
+    yline = independent_variable_test[:250,1]
+    xline = independent_variable_test[:250,3]
+    plt.xlabel('Relative Humidity')
+    plt.ylabel('Exhaust Vaccum')
+    
     ax2.scatter3D(xline, yline, zline, 'gray')
     
-    zline2 = dependent_variable_test[:500]
-    yline2 = independent_variable_test[:500,0]
-    xline2 = independent_variable_test[:500,1]
+    
+    
+    zline2 = dependent_variable_test[:250]
+    yline2 = independent_variable_test[:250,1]
+    xline2 = independent_variable_test[:250,3]
+    plt.xlabel('Relative Humidity')
+    plt.ylabel('Exhaust Vaccum')
+   
     ax2.scatter3D(xline2, yline2, zline2, 'red')
+    ax2.legend(['predicted value','actual value'])
     plt.show()
     
   

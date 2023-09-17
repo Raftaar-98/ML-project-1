@@ -72,8 +72,8 @@ if __name__ == "__main__":
     print(theta)
     print(md.gen_cost_function(test_ind_var,test_dep_var,theta))
     pred_data = md.predict(theta,test_ind_var)
-   
-    print("Mean squared error: ",md.mse(theta,pred_data,test_dep_var))
+    MSE = md.mse(theta,pred_data,test_dep_var)
+    print("Mean squared error: ",MSE)
 
     #Plot error values for each iteration
     fig,ax = plt.subplots()
@@ -86,12 +86,19 @@ if __name__ == "__main__":
     zline = pred_data[:500]
     yline = test_ind_var[:500,0]
     xline = test_ind_var[:500,3]
+    plt.xlabel('Relative Humidity')
+    plt.ylabel('Exhaust Vaccum')
+    
     ax2.scatter3D(xline, yline, zline, 'gray')
     
     zline2 = test_dep_var[:500]
     yline2 = test_ind_var[:500,0]
     xline2 = test_ind_var[:500,3]
+    plt.xlabel('Relative Humidity')
+    plt.ylabel('Exhaust Vaccum')
+    
     ax2.scatter3D(xline2, yline2, zline2, 'red')
+    ax2.legend(['predicted value','actual value'])
     plt.show()
 
    

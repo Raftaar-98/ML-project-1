@@ -10,3 +10,4 @@
 *.wsuo
 *.vsidx
 *.sqlite-journal
+log.txt
