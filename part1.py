@@ -78,6 +78,8 @@ if __name__ == "__main__":
     #Plot error values for each iteration
     fig,ax = plt.subplots()
     ax.plot(np.arange(iterations),epsilon,'r')
+    plt.xlabel("Iteration")
+    plt.ylabel("Error")
     plt.show()
 
     #Plotting predicted and actual data for 2 features with highest weight
